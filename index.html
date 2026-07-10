@@ -1,0 +1,1176 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Don't Panic 파운더의 사고방식 4회차, 제로 투 원 발제문">
+  <title>제로 투 원 — Don't Panic Book Talk</title>
+  <style>
+    :root {
+      --ink: #171716;
+      --muted: #696862;
+      --paper: #f3f0e9;
+      --surface: #fffefa;
+      --line: #d6d1c7;
+      --orange: #e45424;
+      --orange-soft: #f9dfd4;
+      --teal: #176d64;
+      --teal-soft: #dcebe7;
+      --yellow: #e8b84c;
+      --yellow-soft: #fbf0ce;
+      --header-height: 64px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+      line-height: 1.7;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: -60px;
+      z-index: 100;
+      padding: 10px 14px;
+      background: var(--surface);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: 4px;
+      font-weight: 800;
+      transition: top 160ms ease;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    .progress {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 90;
+      height: 3px;
+      background: transparent;
+    }
+
+    .progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: var(--orange);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      min-height: var(--header-height);
+      background: rgba(23, 23, 22, 0.97);
+      color: #fff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .header-inner {
+      max-width: 1180px;
+      min-height: var(--header-height);
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .brand strong {
+      color: var(--yellow);
+      font-size: 0.92rem;
+    }
+
+    .brand span {
+      color: #d7d4cd;
+      font-size: 0.78rem;
+    }
+
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: #d7d4cd;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .header-links a {
+      text-decoration: none;
+    }
+
+    .header-links a:hover,
+    .header-links a:focus-visible {
+      color: #fff;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .hero {
+      position: relative;
+      height: min(72svh, 680px);
+      min-height: 500px;
+      display: flex;
+      align-items: flex-end;
+      isolation: isolate;
+      overflow: hidden;
+      background-color: #080808;
+      background-image: url("images/youtube-thumbnail.jpg");
+      background-size: cover;
+      background-position: center 42%;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: rgba(0, 0, 0, 0.62);
+    }
+
+    .hero-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 64px 24px 56px;
+      color: #fff;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--yellow);
+      font-size: 0.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 850px;
+      margin-bottom: 18px;
+      font-size: 5rem;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .hero-subtitle {
+      max-width: 690px;
+      margin: 0;
+      color: #f1eee7;
+      font-size: 1.28rem;
+      font-weight: 650;
+      line-height: 1.55;
+    }
+
+    .hero-meta {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      color: #d9d5cb;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .schedule {
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .schedule-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .schedule-item {
+      min-height: 108px;
+      padding: 20px 18px;
+      border-left: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .schedule-item:last-child {
+      border-right: 1px solid var(--line);
+    }
+
+    .schedule-item strong {
+      font-size: 0.98rem;
+    }
+
+    .schedule-item span {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .schedule-item.break {
+      background: var(--yellow-soft);
+    }
+
+    .page-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 56px 24px 100px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 760px);
+      justify-content: space-between;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .toc {
+      position: sticky;
+      top: calc(var(--header-height) + 28px);
+      padding-top: 4px;
+    }
+
+    .toc-label {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .toc a {
+      display: block;
+      padding: 9px 0 9px 14px;
+      border-left: 2px solid var(--line);
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 750;
+      line-height: 1.35;
+    }
+
+    .toc a:hover,
+    .toc a:focus-visible,
+    .toc a.active {
+      border-left-color: var(--orange);
+      color: var(--ink);
+    }
+
+    .toc-tools {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .toc-tools a {
+      padding: 0;
+      border: 0;
+      color: var(--teal);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .content {
+      min-width: 0;
+    }
+
+    .phase {
+      scroll-margin-top: calc(var(--header-height) + 24px);
+      padding: 0 0 42px;
+      border-bottom: 3px solid var(--ink);
+    }
+
+    .phase + .question,
+    .question + .phase {
+      margin-top: 0;
+    }
+
+    .phase-tag {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--orange);
+      font-size: 0.75rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .phase h2 {
+      margin-bottom: 12px;
+      font-size: 2.25rem;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .phase p {
+      max-width: 650px;
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .opening {
+      padding-top: 8px;
+    }
+
+    .opening .opening-copy {
+      font-size: 1.04rem;
+    }
+
+    .opening-prompts {
+      margin: 26px 0 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .opening-prompts li {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 1.04rem;
+      font-weight: 800;
+    }
+
+    .question {
+      scroll-margin-top: calc(var(--header-height) + 18px);
+      padding: 70px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .question-number {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      color: var(--orange);
+      font-size: 0.74rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .question-number span {
+      color: var(--muted);
+    }
+
+    .question h2 {
+      margin-bottom: 18px;
+      font-size: 2.1rem;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .context {
+      margin-bottom: 24px;
+      color: #45443f;
+      font-size: 1rem;
+    }
+
+    blockquote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      background: var(--yellow-soft);
+      border-left: 5px solid var(--yellow);
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    blockquote p {
+      margin-bottom: 8px;
+    }
+
+    blockquote cite {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-style: normal;
+      font-weight: 800;
+    }
+
+    .main-prompt {
+      margin: 28px 0 24px;
+      padding: 24px 26px;
+      background: var(--ink);
+      color: #fff;
+      border-radius: 6px;
+      font-size: 1.08rem;
+      font-weight: 800;
+      line-height: 1.65;
+    }
+
+    .followups {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .followups li {
+      position: relative;
+      padding: 14px 0 14px 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .followups li::before {
+      content: "↳";
+      position: absolute;
+      left: 2px;
+      color: var(--teal);
+      font-weight: 900;
+    }
+
+    .score-grid {
+      margin: 26px 0 8px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .score-grid div {
+      min-height: 88px;
+      padding: 14px;
+      background: var(--teal-soft);
+      border: 1px solid #bfd7d1;
+      border-radius: 6px;
+    }
+
+    .score-grid strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--teal);
+      font-size: 0.82rem;
+    }
+
+    .score-grid span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .formula {
+      margin: 22px 0;
+      padding: 18px 20px;
+      border: 2px solid var(--teal);
+      border-radius: 6px;
+      color: var(--teal);
+      font-size: 1.05rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .choice-grid {
+      margin: 26px 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .choice-grid div {
+      padding: 20px;
+      background: var(--surface);
+    }
+
+    .choice-grid div + div {
+      border-left: 1px solid var(--line);
+    }
+
+    .choice-grid strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--orange);
+    }
+
+    .choice-grid p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .checklist {
+      margin: 26px 0;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .checklist span {
+      padding: 12px 10px;
+      background: var(--orange-soft);
+      border: 1px solid #edc3b3;
+      border-radius: 4px;
+      color: #873817;
+      font-size: 0.78rem;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .break-band {
+      scroll-margin-top: calc(var(--header-height) + 18px);
+      margin: 0 -24px;
+      padding: 34px 24px;
+      background: var(--yellow-soft);
+      border-top: 1px solid #e7d59b;
+      border-bottom: 1px solid #e7d59b;
+    }
+
+    .break-band h2 {
+      margin-bottom: 6px;
+      font-size: 1.35rem;
+    }
+
+    .break-band p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .reserve {
+      scroll-margin-top: calc(var(--header-height) + 18px);
+      padding: 70px 0;
+    }
+
+    .reserve > p {
+      color: var(--muted);
+    }
+
+    details {
+      border-top: 1px solid var(--line);
+    }
+
+    details:last-of-type {
+      border-bottom: 1px solid var(--line);
+    }
+
+    summary {
+      padding: 17px 2px;
+      cursor: pointer;
+      font-weight: 850;
+    }
+
+    details p {
+      margin: 0;
+      padding: 0 2px 20px;
+      color: var(--muted);
+    }
+
+    .closing {
+      scroll-margin-top: calc(var(--header-height) + 18px);
+      margin-top: 10px;
+      padding: 48px 44px;
+      background: var(--teal);
+      color: #fff;
+      border-radius: 6px;
+    }
+
+    .closing .phase-tag {
+      color: #bce4dc;
+    }
+
+    .closing h2 {
+      margin-bottom: 12px;
+      font-size: 2rem;
+      line-height: 1.25;
+    }
+
+    .closing p {
+      color: #e7f2ef;
+    }
+
+    .closing ul {
+      margin: 24px 0 0;
+      padding-left: 20px;
+      font-weight: 800;
+    }
+
+    .facilitator {
+      margin-top: 42px;
+      padding: 24px 0 0;
+      border-top: 3px solid var(--ink);
+    }
+
+    .facilitator summary {
+      color: var(--teal);
+    }
+
+    .facilitator ul {
+      margin-top: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .site-footer {
+      background: var(--ink);
+      color: #d8d5ce;
+    }
+
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 44px 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      font-size: 0.8rem;
+    }
+
+    .footer-inner p {
+      margin: 0;
+    }
+
+    .footer-inner a {
+      color: var(--yellow);
+      text-underline-offset: 3px;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--yellow);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      html {
+        scroll-padding-top: 0;
+      }
+
+      .phase,
+      .question,
+      .break-band,
+      .reserve,
+      .closing {
+        scroll-margin-top: calc(var(--header-height) + 62px);
+      }
+
+      .hero {
+        min-height: 460px;
+      }
+
+      h1 {
+        font-size: 4rem;
+      }
+
+      .schedule-inner {
+        grid-template-columns: repeat(5, minmax(150px, 1fr));
+        overflow-x: auto;
+      }
+
+      .page-shell {
+        grid-template-columns: 1fr;
+        gap: 34px;
+        padding-top: 30px;
+      }
+
+      .toc {
+        position: sticky;
+        top: var(--header-height);
+        z-index: 60;
+        margin: 0 -24px;
+        padding: 8px 24px;
+        display: flex;
+        gap: 0;
+        overflow-x: auto;
+        background: rgba(243, 240, 233, 0.98);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .toc-label,
+      .toc-tools {
+        display: none;
+      }
+
+      .toc a {
+        flex: 0 0 auto;
+        padding: 8px 12px;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        white-space: nowrap;
+      }
+
+      .toc a.active {
+        border-bottom-color: var(--orange);
+      }
+    }
+
+    @media (max-width: 620px) {
+      :root {
+        --header-height: 58px;
+      }
+
+      .header-inner {
+        min-height: var(--header-height);
+        padding: 0 16px;
+      }
+
+      .brand span,
+      .header-links a:not(:first-child) {
+        display: none;
+      }
+
+      .header-links {
+        gap: 0;
+      }
+
+      .hero {
+        height: 68svh;
+        min-height: 430px;
+        background-position: 62% center;
+      }
+
+      .hero-inner {
+        padding: 40px 18px 34px;
+      }
+
+      h1 {
+        font-size: 3.25rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.05rem;
+      }
+
+      .hero-meta {
+        margin-top: 20px;
+        display: grid;
+        gap: 4px;
+        font-size: 0.8rem;
+      }
+
+      .schedule-inner {
+        padding: 0 16px;
+      }
+
+      .schedule-item {
+        min-height: 92px;
+        padding: 14px;
+      }
+
+      .page-shell {
+        padding: 24px 18px 72px;
+      }
+
+      .toc {
+        margin: 0 -18px;
+        padding: 6px 12px;
+      }
+
+      .phase {
+        padding-bottom: 34px;
+      }
+
+      .phase h2,
+      .question h2 {
+        font-size: 1.72rem;
+      }
+
+      .question {
+        padding: 52px 0;
+      }
+
+      blockquote,
+      .main-prompt {
+        padding: 20px;
+      }
+
+      .score-grid,
+      .checklist {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .choice-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .choice-grid div + div {
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .break-band {
+        margin: 0 -18px;
+        padding: 28px 18px;
+      }
+
+      .closing {
+        padding: 34px 24px;
+      }
+
+      .footer-inner {
+        padding: 36px 18px;
+        display: grid;
+      }
+    }
+
+    @media print {
+      :root {
+        --paper: #fff;
+      }
+
+      .site-header,
+      .progress,
+      .toc,
+      .schedule,
+      .site-footer {
+        display: none !important;
+      }
+
+      .hero {
+        height: auto;
+        min-height: 0;
+        background-image: none;
+        background-color: #fff;
+        color: #000;
+        border-bottom: 3px solid #000;
+      }
+
+      .hero::before {
+        display: none;
+      }
+
+      .hero-inner,
+      .hero-subtitle,
+      .hero-meta {
+        color: #000;
+      }
+
+      .hero-inner {
+        padding: 18mm 0 10mm;
+      }
+
+      .page-shell {
+        max-width: none;
+        padding: 0;
+        display: block;
+      }
+
+      .question {
+        padding: 12mm 0;
+        break-inside: avoid;
+      }
+
+      .main-prompt {
+        border: 2px solid #000;
+        background: #fff;
+        color: #000;
+      }
+
+      .closing {
+        border: 2px solid #000;
+        background: #fff;
+        color: #000;
+      }
+
+      .closing p {
+        color: #000;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#opening">본문으로 건너뛰기</a>
+  <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top">
+        <strong>DON'T PANIC</strong>
+        <span>파운더의 사고방식 · 4회차</span>
+      </a>
+      <nav class="header-links" aria-label="관련 문서">
+        <a href="섹션별-요약.html">섹션별 요약</a>
+        <a href="트레바리-발제-분석.md">30건 분석</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="hero-inner">
+      <p class="eyebrow">Book Talk · 2026. 07. 11</p>
+      <h1 id="hero-title">ZERO TO ONE</h1>
+      <p class="hero-subtitle">경쟁하지 않는 회사를 만드는 일과, 그 회사가 권력이 된 뒤의 책임까지 이야기합니다.</p>
+      <div class="hero-meta">
+        <span>피터 틸 · 블레이크 매스터스</span>
+        <span>본 질문 6개 · 예비 질문 4개</span>
+        <span>14개 장 섹션 요약 기반</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="schedule" aria-label="3시간 진행 흐름">
+    <div class="schedule-inner">
+      <div class="schedule-item"><span>20분</span><strong>오프닝 &amp; 독후감</strong></div>
+      <div class="schedule-item"><span>70분</span><strong>BOOK TALK 1</strong></div>
+      <div class="schedule-item break"><span>10분</span><strong>쉬는 시간</strong></div>
+      <div class="schedule-item"><span>70분</span><strong>BOOK TALK 2</strong></div>
+      <div class="schedule-item"><span>10분</span><strong>마무리 토크</strong></div>
+    </div>
+  </section>
+
+  <div class="page-shell">
+    <aside class="toc" aria-label="발제 순서">
+      <p class="toc-label">Discussion Guide</p>
+      <a href="#opening">오프닝</a>
+      <a href="#q1">01 · 0→1과 1→n</a>
+      <a href="#q2">02 · 창조적 독점</a>
+      <a href="#q3">03 · 반대편 진실</a>
+      <a href="#break">쉬는 시간</a>
+      <a href="#q4">04 · 계획과 집중</a>
+      <a href="#q5">05 · 창업자와 팀</a>
+      <a href="#q6">06 · AI 회사</a>
+      <a href="#reserve">예비 질문</a>
+      <a href="#closing">마무리</a>
+      <div class="toc-tools">
+        <a href="발제.md">Markdown 원문</a>
+        <a href="자료-출처.md">자료 출처</a>
+      </div>
+    </aside>
+
+    <main class="content" id="main-content">
+      <section class="phase opening" id="opening" data-nav-title="오프닝">
+        <span class="phase-tag">Opening Talk · 20 min</span>
+        <h2>책을 읽고 어디에서 멈췄나요?</h2>
+        <p class="opening-copy">『제로 투 원』은 경쟁보다 독점, 우연보다 계획, 분산보다 집중, 평균적인 관리자보다 강한 창업자를 택하라고 요구합니다. 누군가에게는 통찰이고, 누군가에게는 성공한 사람의 오만으로 읽힐 수 있습니다.</p>
+        <ul class="opening-prompts">
+          <li>이 책을 한 문장으로 평한다면?</li>
+          <li>가장 설득된 주장 하나와 가장 거슬렸던 주장 하나는?</li>
+        </ul>
+      </section>
+
+      <section class="phase" id="book-talk-1">
+        <span class="phase-tag">Book Talk 1 · 70 min</span>
+        <h2>피터 틸의 주장과 맞붙어 보기</h2>
+        <p>책의 명제를 한국의 현실과 각자의 경험으로 압박해 봅니다. 맞는지를 말하는 데서 멈추지 않고, 어디까지 맞는지 따져봅니다.</p>
+      </section>
+
+      <article class="question" id="q1" data-nav-title="01 · 0→1과 1→n">
+        <div class="question-number">Question 01 <span>1장</span></div>
+        <h2>꼭 0에서 1이어야 할까요?</h2>
+        <p class="context">피터 틸은 검증된 것을 복제하는 1→n과 전에 없던 것을 만드는 0→1을 구분합니다. 하지만 한국에서 성공한 많은 회사는 해외의 검증된 모델을 현지화하거나, 이미 있던 시장의 경험을 크게 개선하며 성장했습니다.</p>
+        <blockquote>
+          <p>“여러 번의 n→n 끝에도 원칙을 놓치지 않고 0→1을 만들어본다는 것. 나는 그렇게 살고 싶다.”</p>
+          <cite>사전 독후감</cite>
+        </blockquote>
+        <p class="main-prompt">지금 하고 있는 일이나 프로젝트 하나를 골라 0→1, 1→n, 혹은 그 사이 어디에 있는지 판정해 봅시다. 성공하려면 반드시 0→1이어야 할까요?</p>
+        <ul class="followups">
+          <li>단순한 모방과 가치 있는 현지화·개선의 경계는 어디인가요?</li>
+          <li>반복된 1→n은 창조의 반대인가요, 언젠가 0→1을 만들기 위한 훈련인가요?</li>
+        </ul>
+      </article>
+
+      <article class="question" id="q2" data-nav-title="02 · 창조적 독점">
+        <div class="question-number">Question 02 <span>3~5장</span></div>
+        <h2>창조적 독점은 언제 시장 권력이 될까요?</h2>
+        <p class="context">틸은 독자 기술, 네트워크 효과, 규모의 경제, 브랜드를 독점의 네 조건으로 제시합니다. 창업자에게 독점은 혁신의 보상이지만, 소비자에게는 선택지를 줄이는 권력이 될 수도 있습니다.</p>
+        <div class="score-grid" aria-label="독점 조건 채점표">
+          <div><strong>독자 기술</strong><span>남보다 압도적으로 나은가</span></div>
+          <div><strong>네트워크 효과</strong><span>사용자가 늘수록 강해지는가</span></div>
+          <div><strong>규모의 경제</strong><span>커질수록 비용 우위가 생기는가</span></div>
+          <div><strong>브랜드</strong><span>대체하기 어려운 신뢰가 있는가</span></div>
+        </div>
+        <blockquote>
+          <p>“나는 위대한 기업을 직접 만들기보다는 그런 기업을 발견하고 투자하는 길에 더 큰 흥미를 느낀다는 사실을 다시 확인했다.”</p>
+          <cite>사전 독후감</cite>
+        </blockquote>
+        <p class="main-prompt">내가 투자했거나, 일하고 있거나, 자주 쓰는 회사 하나를 골라 네 조건을 각각 0~2점으로 채점해 봅시다. 높은 점수는 새로운 가치를 만든 결과인가요, 다른 선택을 막은 결과인가요?</p>
+        <ul class="followups">
+          <li>투자자라면 지금도 이 회사에 투자하겠나요?</li>
+          <li>소비자나 생태계 참여자라면 어느 순간부터 견제가 필요하다고 보나요?</li>
+        </ul>
+      </article>
+
+      <article class="question" id="q3" data-nav-title="03 · 반대편 진실">
+        <div class="question-number">Question 03 <span>8장</span></div>
+        <h2>나만의 진실인가, 나만의 착각인가요?</h2>
+        <p class="context">실제 질문이 담긴 역대 발제 25건 중 20건이 “남들이 동의하지 않는 중요한 진실”을 물었습니다. 남들과 다르다는 사실만으로 그 믿음이 진실이 되지는 않습니다.</p>
+        <div class="formula">대부분의 사람은 X라고 믿지만, 나는 Y라고 생각한다.</div>
+        <p class="main-prompt">문장을 각자의 일이나 삶에 맞게 완성해 봅시다. 그리고 그 믿음 때문에 실제로 다르게 행동한 적이 있나요?</p>
+        <ul class="followups">
+          <li>그 믿음은 어떤 관찰이나 경험에서 시작됐나요?</li>
+          <li>무엇을 보게 되면 내가 틀렸다고 인정할 수 있나요?</li>
+        </ul>
+      </article>
+
+      <section class="break-band" id="break" data-nav-title="쉬는 시간">
+        <h2>10분 쉬는 시간</h2>
+        <p>후반부에는 책의 주장을 각자의 선택, 팀, AI 시대의 사업에 적용합니다.</p>
+      </section>
+
+      <section class="phase" id="book-talk-2">
+        <span class="phase-tag">Book Talk 2 · 70 min</span>
+        <h2>여러분이라면 어떻게 하시겠어요?</h2>
+        <p>정답을 찾기보다 지금 가진 선택지와 판단 기준을 드러냅니다. 선택을 바꿀 조건까지 함께 이야기합니다.</p>
+      </section>
+
+      <article class="question" id="q4" data-nav-title="04 · 계획과 집중">
+        <div class="question-number">Question 04 <span>6~7장</span></div>
+        <h2>집중은 언제 용기이고, 언제 무모함일까요?</h2>
+        <p class="context">틸은 구체적인 미래를 계획하는 확정적 낙관주의와 소수의 결정적 선택에 집중하는 거듭제곱 법칙을 강조합니다. 하지만 큰 기회는 사후에만 선명해 보이고, 강한 계획은 틀렸을 때 고집이 되기도 합니다.</p>
+        <blockquote>
+          <p>“큰 성공은 소수의 자리에서 나온다는데, 그렇다면 내 인생의 뾰족한 지점은 어디일까.”</p>
+          <cite>사전 독후감</cite>
+        </blockquote>
+        <p class="main-prompt">지금 여러 선택지를 열어 둔 일 하나와 집중하고 있는 일 하나를 이야기해 봅시다. 그 집중은 비선형 가능성을 알아본 결정인가요, 불확실성을 무시한 올인인가요?</p>
+        <ul class="followups">
+          <li>무엇은 끝까지 지킬 비전이고, 무엇은 실험하며 바꿀 전략인가요?</li>
+          <li>어떤 신호가 나오면 더 집중하고, 어떤 신호가 나오면 그만두겠나요?</li>
+        </ul>
+      </article>
+
+      <article class="question" id="q5" data-nav-title="05 · 창업자와 팀">
+        <div class="question-number">Question 05 <span>9~10장 · 14장</span></div>
+        <h2>강한 창업자와 강한 팀 중 어디에 걸겠어요?</h2>
+        <p class="context">같은 아이디어를 가진 두 회사가 있습니다. 두 회사 모두 장점과 결함이 뚜렷합니다.</p>
+        <div class="choice-grid" aria-label="두 회사 선택">
+          <div><strong>COMPANY A</strong><p>비전과 추진력이 강한 창업자가 이끌지만 견제가 약합니다.</p></div>
+          <div><strong>COMPANY B</strong><p>역할과 의사결정 구조가 탄탄하지만 한 사람의 강한 비전은 없습니다.</p></div>
+        </div>
+        <blockquote>
+          <p>“비밀을 지키고 신뢰할 수 있는 사람들의 모임을 만들어가고 있다. […] 가장 공감한 건 사람과 네트워크에 관한 부분이었다.”</p>
+          <cite>사전 독후감</cite>
+        </blockquote>
+        <p class="main-prompt">여러분이라면 어느 회사에 합류하거나 투자하겠어요? 무엇이 보완되면 반대쪽 회사를 선택할 수 있을까요?</p>
+        <ul class="followups">
+          <li>우리 조직의 갈등은 사람의 문제인가요, 권한·보상·역할이라는 기초 설계의 문제인가요?</li>
+          <li>강한 미션과 높은 신뢰를 유지하면서도 창업자의 잘못을 멈추게 할 장치는 무엇인가요?</li>
+        </ul>
+      </article>
+
+      <article class="question" id="q6" data-nav-title="06 · AI 회사">
+        <div class="question-number">Question 06 <span>2장 · 11~13장</span></div>
+        <h2>2026년의 AI 회사라면 어디에서 탈락할까요?</h2>
+        <p class="context">클린테크 기업들은 큰 시장과 좋은 명분만으로 성공하지 못했습니다. 제품 제작 비용이 크게 낮아진 AI 시대에는 제품보다 배포, 신뢰, 실제 업무 편입이 더 희소할 수도 있습니다.</p>
+        <div class="checklist" aria-label="스타트업 일곱 질문">
+          <span>기술</span><span>타이밍</span><span>독점 시장</span><span>팀</span><span>배포</span><span>존속성</span><span>비밀</span>
+        </div>
+        <blockquote>
+          <p>“중요한 건 잘 협력할 수 있는 구조를 짜는 것, 그리고 그 협력의 범위를 명확히 이해하는 것이다.”</p>
+          <cite>사전 독후감</cite>
+        </blockquote>
+        <p class="main-prompt">관심 있는 AI 서비스나 직접 만들고 싶은 아이디어 하나를 떠올려 봅시다. 일곱 질문 중 가장 강한 항목 하나와 가장 약한 항목 하나는 무엇인가요? 약점을 풀지 못한다면 기술 전환의 승자가 될까요, 버블의 일부로 끝날까요?</p>
+        <ul class="followups">
+          <li>AI는 사람을 대체해 비용을 줄이나요, 사람과 함께 전에 불가능했던 가치를 만드나요?</li>
+          <li>좋은 데모를 반복 사용과 지불로 바꿀 단 하나의 배포 경로는 무엇인가요?</li>
+        </ul>
+      </article>
+
+      <section class="reserve" id="reserve" data-nav-title="예비 질문">
+        <span class="phase-tag">Reserve Questions</span>
+        <h2>대화가 빨리 끝났을 때만</h2>
+        <p>본 질문에서 대화가 충분히 깊어졌다면 사용하지 않습니다.</p>
+        <details>
+          <summary>내가 이기려는 게임은 할 가치가 있나요? · 4장</summary>
+          <p>지금 경험하는 경쟁은 실력을 키우고 있나요, 경쟁자와 나를 닮게 만들고 있나요? 게임에서 이기는 대신 다른 게임을 설계할 수 있을까요?</p>
+        </details>
+        <details>
+          <summary>좋은 제품이 저절로 팔린다는 믿음 · 11장</summary>
+          <p>기술은 뛰어났지만 팔리지 않은 사례, 반대로 기술은 평범했지만 배포로 이긴 사례가 있나요? 우리 조직의 병목은 제품인가요, 채택인가요?</p>
+        </details>
+        <details>
+          <summary>버블에서 무엇을 배워야 할까요? · 2장·13장</summary>
+          <p>AI 붐이 꺼진다면 무엇을 교훈으로 남겨야 할까요? 과열과 허풍을 걷어내면서 진짜 기술 전환까지 버리지 않으려면 무엇을 봐야 하나요?</p>
+        </details>
+        <details>
+          <summary>마지막 진입자는 정말 존재할까요? · 5장</summary>
+          <p>작은 시장을 장악해도 인접 시장으로 넓히면 다시 경쟁하게 됩니다. 어떤 회사가 10년 뒤에도 현금흐름과 차이를 지킬 수 있을까요?</p>
+        </details>
+      </section>
+
+      <section class="closing" id="closing" data-nav-title="마무리">
+        <span class="phase-tag">Closing Talk · 10 min</span>
+        <h2>처음의 생각이 지금도 그대로인가요?</h2>
+        <p>가장 설득된 주장과 가장 거슬렸던 주장이 대화 뒤에도 남았는지 돌아봅니다.</p>
+        <ul>
+          <li>이 책에서 가져갈 원칙 하나</li>
+          <li>버릴 원칙 하나</li>
+          <li>다음 한 달 안에 직접 시험해 볼 작은 0→1 하나</li>
+        </ul>
+      </section>
+
+      <details class="facilitator">
+        <summary>진행자 메모 보기</summary>
+        <ul>
+          <li>본 질문 6개를 기준으로 한 문항당 약 20분을 사용합니다.</li>
+          <li>하위 질문은 모두 묻지 않습니다. 대화가 추상적일 때 사례, 선택, 선택을 바꿀 조건 중 하나만 꺼냅니다.</li>
+          <li>회사 이름이 나오면 좋다/나쁘다보다 어떤 조건과 관찰로 판단했는지 되묻습니다.</li>
+          <li>저자의 정치 행보는 책의 논증을 검증할 때만 연결합니다.</li>
+        </ul>
+      </details>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>Don't Panic · 파운더의 사고방식 · 2026</p>
+      <p><a href="섹션별-요약.html">14개 장 섹션별 요약 보기</a></p>
+    </div>
+  </footer>
+
+  <script>
+    const progressBar = document.getElementById("progress-bar");
+    const navLinks = [...document.querySelectorAll(".toc > a")];
+    const sections = [...document.querySelectorAll("[data-nav-title]")];
+
+    function updateProgress() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+      progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!visible) return;
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${visible.target.id}`);
+      });
+    }, {
+      rootMargin: "-20% 0px -65% 0px",
+      threshold: [0, 0.2, 0.5]
+    });
+
+    sections.forEach((section) => observer.observe(section));
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    updateProgress();
+  </script>
+</body>
+</html>
