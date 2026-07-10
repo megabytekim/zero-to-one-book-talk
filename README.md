@@ -8,11 +8,14 @@
 
 ## Live
 
-https://megabytekim.github.io/zero-to-one-book-talk/
+- 상세 발제문: https://megabytekim.github.io/zero-to-one-book-talk/
+- 간단 발제문: https://megabytekim.github.io/zero-to-one-book-talk/simple.html
 
 ## Files
 
 - `index.html` — 발제 진행 화면
+- `simple.html` — 문단으로만 구성한 별도의 간단 발제 화면
+- `간단-발제.md` — 간단 발제문 원문
 - `섹션별-요약.html` — 14개 장 요약
 - `발제.md` — 발제문 원문
 - `트레바리-발제-분석.md` — 역대 발제 30건 분석
